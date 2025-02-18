@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+:root {
+  --primary: #ffffff;
+  --secondary: #212429;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 16px 32px;
+}
+
+/* Barra de navegación */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  font-size: 16px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0 32px;
+  padding-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid black;
+}
+
+.navbar-1 img, .navbar-3 img{
+  max-width: 24px;
+  margin-right: 20px;
+}
+
+.navbar-3 img {
+  margin-left: 20px;
+}
+
+.navbar-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  margin-right: 25px;
+}
+
+/* Apartado con imagenes */
+
+h2 {
+  font-size: 32px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: left;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+.container {  
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  justify-items: center;
+  margin-bottom: 35px;
+}
+
+.box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.box .details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+  max-width: 95%;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.price {
+  font-size: 14px; 
+  font-weight: bold;
+}
+
+/* Footer */
+
+.container2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  padding: 25px;
+}
+
+.contenedor-footer {
+  display: flex;
+  align-items: center;
+}
+
+.contenedor-imagen {
+  border-radius: 50%;
+  background-color: var(--primary);
+  padding: 8px;
+}
+
+.contenedor-footer div {
+  padding:5%;
+}
+
+/* Media Queries */
+
+@media (max-width: 920px) {
+  .navbar-1 { 
+    margin: 0 auto;
+  }
+
+  .navbar-2 {
+    display: none;
+  }
+
+  .navbar-3 {
+    display: none;
+  }
+
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .container2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .contenedor-footer {
+    border-bottom: 1px solid #ffff;
+    padding-bottom: 16px;
+  }
+}
