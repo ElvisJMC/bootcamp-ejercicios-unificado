@@ -1,0 +1,43 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(220, 250, 251);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zona que ocupa el resto del espacio */
+.zona-juego {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Cuadrícula */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(2, 230px);
+  grid-template-rows: repeat(1, 240px);
+  gap: 12px;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Cada carta */
+.contenedor div {
+  width: 220px;
+  height: 220px;
+  background-color: #8dd3f4;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

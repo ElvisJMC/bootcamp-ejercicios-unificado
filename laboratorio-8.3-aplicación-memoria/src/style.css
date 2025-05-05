@@ -1,0 +1,132 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(220, 250, 251);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zona que ocupa el resto del espacio */
+.zona-juego {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cuadrícula */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 230px);
+  grid-template-rows: repeat(3, 240px);
+  gap: 12px;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Cada carta */
+.contenedor div {
+  width: 220px;
+  height: 220px;
+  background-color: #8dd3f4;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8dd3f4;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carta.vuelta {
+  background-color: #cfa5f8;
+}
+
+.imagen-carta {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.zona-boton {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  top: -40px;
+}
+
+button {
+  width: 400px;
+  height: 80px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  background-color: #cfa5f8;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+  background-color: #cfa5f8;
+  transform: scale(1.1);
+}
+
+.carta:hover {
+  transform: scale(1.05);
+  transition: transform 0.2 ease;
+  box-shadow: 0 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+#mensaje-final {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  width: fit-content;
+  background-color: #ffffffcc;
+  padding: 30px 50px;
+  border-radius: 16px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1000;
+}
+
+#mensaje-final.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
