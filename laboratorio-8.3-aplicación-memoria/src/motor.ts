@@ -4,7 +4,6 @@ import {
   crearColeccionDeCartasInicial,
   infoCartas,
 } from "./modelo";
-import { renderTablero } from "./ui";
 
 /*
 En el motor nos va a hacer falta un método para barajar cartas
@@ -26,39 +25,22 @@ export const sePuedeVoltearLaCarta = (
   tablero: Tablero,
   indice: number
 ): boolean => {
-  if (tablero.cartas[indice].estaVuelta || tablero.cartas[indice].encontrada) {
-    return false;
-  }
-  if (tablero.estadoPartida === "DosCartasLevantadas") {
-    return false;
-  }
-  return true;
+  return (
+    !tablero.cartas[indice].estaVuelta &&
+    !tablero.cartas[indice].encontrada &&
+    tablero.estadoPartida !== "DosCartasLevantadas" //* Evita que se puedan levantar mas de 2 cartas consecutivas.
+  );
 };
 
 export const voltearLaCarta = (tablero: Tablero, indice: number): void => {
-  console.log(
-    "Volteando carta",
-    indice,
-    "Estado actual:",
-    tablero.estadoPartida
-  );
+  tablero.cartas[indice].estaVuelta = true;
 
-  if (
-    !tablero.cartas[indice].estaVuelta &&
-    !tablero.cartas[indice].encontrada
-  ) {
-    tablero.cartas[indice].estaVuelta = true;
-
-    if (tablero.estadoPartida === "CeroCartasLevantadas") {
-      tablero.estadoPartida = "UnaCartaLevantada";
-      tablero.indiceCartaVolteadaA = indice;
-    } else if (
-      tablero.estadoPartida === "UnaCartaLevantada" &&
-      tablero.indiceCartaVolteadaA !== indice // Evita duplicados
-    ) {
-      tablero.estadoPartida = "DosCartasLevantadas";
-      tablero.indiceCartaVolteadaB = indice;
-    }
+  if (tablero.estadoPartida === "CeroCartasLevantadas") {
+    tablero.estadoPartida = "UnaCartaLevantada";
+    tablero.indiceCartaVolteadaA = indice;
+  } else if (tablero.estadoPartida === "UnaCartaLevantada") {
+    tablero.estadoPartida = "DosCartasLevantadas";
+    tablero.indiceCartaVolteadaB = indice;
   }
 };
 
@@ -70,11 +52,7 @@ export const sonPareja = (
   indiceB: number,
   tablero: Tablero
 ): boolean => {
-  if (tablero.cartas[indiceA].idFoto === tablero.cartas[indiceB].idFoto) {
-    return true;
-  } else {
-    return false;
-  }
+  return tablero.cartas[indiceA].idFoto === tablero.cartas[indiceB].idFoto;
 };
 
 /*
@@ -85,15 +63,11 @@ export const parejaEncontrada = (
   indiceA: number,
   indiceB: number
 ): void => {
-  console.log("Pareja encontrada", indiceA, indiceB);
   tablero.cartas[indiceA].encontrada = true;
   tablero.cartas[indiceB].encontrada = true;
   tablero.cartas[indiceA].estaVuelta = true;
   tablero.cartas[indiceB].estaVuelta = true;
-
-  tablero.estadoPartida = "CeroCartasLevantadas";
-  tablero.indiceCartaVolteadaA = undefined;
-  tablero.indiceCartaVolteadaB = undefined;
+  reiniciarCartasVolteadas(tablero);
 };
 
 /*
@@ -104,17 +78,15 @@ export const parejaNoEncontrada = (
   indiceA: number,
   indiceB: number
 ): void => {
-  console.log("Pareja NO encontrada", indiceA, indiceB);
-  setTimeout(() => {
-    // Dentro de este método va todo lo que pasa después de un segundo
-    tablero.cartas[indiceB].estaVuelta = false;
-    tablero.cartas[indiceA].estaVuelta = false;
+  tablero.cartas[indiceB].estaVuelta = false;
+  tablero.cartas[indiceA].estaVuelta = false;
+  reiniciarCartasVolteadas(tablero);
+};
 
-    tablero.estadoPartida = "CeroCartasLevantadas";
-    tablero.indiceCartaVolteadaA = undefined;
-    tablero.indiceCartaVolteadaB = undefined;
-    renderTablero(tablero);
-  }, 1000); // espera 1 segundo
+const reiniciarCartasVolteadas = (tablero: Tablero): void => {
+  tablero.estadoPartida = "CeroCartasLevantadas";
+  tablero.indiceCartaVolteadaA = undefined;
+  tablero.indiceCartaVolteadaB = undefined;
 };
 
 /*
