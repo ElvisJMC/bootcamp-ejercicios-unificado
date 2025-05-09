@@ -103,7 +103,5 @@ export const iniciaPartida = (tablero: Tablero): void => {
   const nuevasCartas = crearColeccionDeCartasInicial(infoCartas);
   const cartasBarajadas = barajarCartas(nuevasCartas);
   tablero.cartas = cartasBarajadas;
-  tablero.estadoPartida = "CeroCartasLevantadas";
-  tablero.indiceCartaVolteadaA = undefined;
-  tablero.indiceCartaVolteadaB = undefined;
+  reiniciarCartasVolteadas(tablero);
 };
